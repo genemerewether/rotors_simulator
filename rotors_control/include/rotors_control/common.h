@@ -105,6 +105,8 @@ inline void calculateAllocationMatrix(const RotorConfiguration& rotor_configurat
               << " check your configuration." << std::endl;
   }
 
+  std::cout << *allocation_matrix << std::endl << std::endl << std::endl;
+
 }
 
 inline void skewMatrixFromVector(Eigen::Vector3d& vector, Eigen::Matrix3d* skew_matrix) {
