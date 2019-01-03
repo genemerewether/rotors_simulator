@@ -25,14 +25,14 @@
   <xacro:property name="use_mesh_file" value="false" />
   <xacro:property name="mesh_file" value="package://rotors_description/meshes/atom.stl" />
   <xacro:property name="mass" value="0.164" /> <!-- [kg] -->
-  <xacro:property name="body_width" value="0.1" /> <!-- [m] -->
-  <xacro:property name="body_height" value="0.08" /> <!-- [m] -->
-  <xacro:property name="mass_rotor" value="0.009" /> <!-- [kg] -->
+  <xacro:property name="body_width" value="0.09" /> <!-- [m] -->
+  <xacro:property name="body_height" value="0.07" /> <!-- [m] -->
+  <xacro:property name="mass_rotor" value="0.0005" /> <!-- [kg] -->
 
-  <xacro:property name="front_arm_x" value="0.03" /> <!-- [m] -->
-  <xacro:property name="front_arm_y" value="0.065" /> <!-- [m] -->
-  <xacro:property name="back_arm_x" value="0.05" /> <!-- [m] -->
-  <xacro:property name="back_arm_y" value="0.05" /> <!-- [m] -->
+  <xacro:property name="front_arm_x" value="0.029" /> <!-- [m] -->
+  <xacro:property name="front_arm_y" value="0.055" /> <!-- [m] -->
+  <xacro:property name="back_arm_x" value="0.045" /> <!-- [m] -->
+  <xacro:property name="back_arm_y" value="0.040" /> <!-- [m] -->
   
   <xacro:property name="rotor_offset_top" value="0.01" /> <!-- [m] -->
   <xacro:property name="radius_rotor" value="0.037" /> <!-- [m] -->
@@ -46,12 +46,12 @@
 
   <!-- Property Blocks -->
   <xacro:property name="body_inertia">
-    <inertia ixx="0.007" ixy="0.0" ixz="0.0" iyy="0.007" iyz="0.0" izz="0.012" /> <!-- [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] -->
+    <inertia ixx="0.000145" ixy="0.0" ixz="0.0" iyy="0.000106" iyz="0.0" izz="0.000199" /> <!-- [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] -->
   </xacro:property>
 
   <!-- inertia of a single rotor, assuming it is a cuboid. Height=3mm, width=15mm -->
   <xacro:property name="rotor_inertia">
-    <xacro:box_inertia x="${radius_rotor}" y="0.003" z="0.003" mass="${mass_rotor*rotor_velocity_slowdown_sim}" />
+    <xacro:box_inertia x="${radius_rotor}" y="0.005" z="0.003" mass="${mass_rotor*rotor_velocity_slowdown_sim}" />
   </xacro:property>
 
   <!-- Included URDF Files -->
