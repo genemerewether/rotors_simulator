@@ -65,6 +65,38 @@ for Quadrocopter Control by Jian Wang et al.) -->
     <xacro:insert_block name="body_inertia" />
   </xacro:multirotor_base_macro>
 
+  <joint name="${namespace}/buoyancy_joint" type="fixed">
+    <origin xyz="0 0 0.75" rpy="0 0 0" />
+    <parent link="${namespace}/base_link" />
+    <child link="${namespace}/buoyancy_visual" />
+  </joint>
+
+  <link name="${namespace}/buoyancy_visual">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	<sphere radius="0.51"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	<sphere radius="0.51"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo>
+    <plugin name="buoyancy_force" filename="libgazebo_ros_force.so">
+      <alwaysOn>true</alwaysOn>
+      <update>100</update>
+      <updateRate>100.0</updateRate>
+      <bodyName>${namespace}/buoyancy_visual</bodyName>
+      <topicName>buoyant_wrench</topicName>
+    </plugin>
+  </gazebo>
+  
   <!-- Instantiate rotors -->
   <xacro:vertical_rotor
     robot_namespace="${namespace}"
