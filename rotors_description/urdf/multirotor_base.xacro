@@ -85,11 +85,11 @@
   </xacro:macro>
 
   <!-- Rotor joint and link -->
-  <xacro:macro name="axis_rotor"
-    params="robot_namespace suffix direction motor_constant moment_constant parent mass_rotor radius_rotor time_constant_up time_constant_down max_rot_velocity motor_number rotor_drag_coefficient rolling_moment_coefficient color use_own_mesh mesh *axis *origin *inertia">
+  <xacro:macro name="vertical_rotor"
+    params="robot_namespace suffix direction motor_constant moment_constant parent mass_rotor radius_rotor time_constant_up time_constant_down max_rot_velocity motor_number rotor_drag_coefficient rolling_moment_coefficient color use_own_mesh mesh *origin *inertia">
     <joint name="${robot_namespace}/rotor_${motor_number}_joint" type="continuous">
       <xacro:insert_block name="origin" />
-      <xacro:insert_block name="axis" />
+      <axis xyz="0 0 1" />
       <!-- TODO(ff): not currently set because it's not yet supported -->
       <!-- <limit effort="2000" velocity="${max_rot_velocity}" /> -->
       <parent link="${parent}" />
@@ -144,29 +144,4 @@
     </gazebo>
   </xacro:macro>
 
-  <xacro:macro name="vertical_rotor"
-	       params="robot_namespace suffix direction motor_constant moment_constant parent mass_rotor radius_rotor time_constant_up time_constant_down max_rot_velocity motor_number rotor_drag_coefficient rolling_moment_coefficient color use_own_mesh mesh *origin *inertia">
-    <xacro:axis_rotor
-      robot_namespace="${robot_namespace}"
-      suffix="${suffix}"
-      direction="${direction}"
-      motor_constant="${motor_constant}"
-      moment_constant="${moment_constant}"
-      parent="${parent}"
-      mass_rotor="${mass_rotor}"
-      radius_rotor="${radius_rotor}"
-      time_constant_up="${time_constant_up}"
-      time_constant_down="${time_constant_down}"
-      max_rot_velocity="${max_rot_velocity}"
-      motor_number="${motor_number}"
-      rotor_drag_coefficient="${rotor_drag_coefficient}"
-      rolling_moment_coefficient="${rolling_moment_coefficient}"
-      color="${color}"
-      use_own_mesh="${use_own_mesh}"
-      mesh="${mesh}">
-      <axis xyz="0 0 1" />
-      <xacro:insert_block name="origin" />
-      <xacro:insert_block name="rotor_inertia" />
-    </xacro:axis_rotor>
-  </xacro:macro>
 </robot>

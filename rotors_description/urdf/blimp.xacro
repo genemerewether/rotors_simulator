@@ -43,7 +43,7 @@ for Quadrocopter Control by Jian Wang et al.) -->
 
   <!-- Property Blocks -->
   <xacro:property name="body_inertia">
-    <inertia ixx="0.007" ixy="0.0" ixz="0.0" iyy="0.007" iyz="0.0" izz="0.012" /> <!-- [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] -->
+    <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.6" iyz="0.0" izz="0.6" /> <!-- [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] -->
   </xacro:property>
 
   <!-- inertia of a single rotor, assuming it is a cuboid. Height=3mm, width=15mm -->
@@ -187,9 +187,9 @@ for Quadrocopter Control by Jian Wang et al.) -->
   </xacro:vertical_rotor>
   
   <!-- Instantiate thrusters -->
-  <xacro:axis_rotor
+  <xacro:vertical_rotor
     robot_namespace="${namespace}"
-    suffix="x_thrust"
+    suffix="x_thrust_cw"
     direction="cw"
     motor_constant="${motor_constant}"
     moment_constant="${moment_constant}"
@@ -205,15 +205,14 @@ for Quadrocopter Control by Jian Wang et al.) -->
     color="Black"
     use_own_mesh="false"
     mesh="">
-    <axis xyz="1 0 0" />
-    <origin xyz="${arm_length} 0 0" rpy="0 0 0" />
+    <origin xyz="${arm_length} ${arm_length/2} 0" rpy="0 ${pi/2} 0" />
     <xacro:insert_block name="rotor_inertia" />
-  </xacro:axis_rotor>
-
-  <xacro:axis_rotor
+  </xacro:vertical_rotor>
+  
+  <xacro:vertical_rotor
     robot_namespace="${namespace}"
-    suffix="y_thrust"
-    direction="cw"
+    suffix="x_thrust_ccw"
+    direction="ccw"
     motor_constant="${motor_constant}"
     moment_constant="${moment_constant}"
     parent="${namespace}/base_link"
@@ -228,8 +227,51 @@ for Quadrocopter Control by Jian Wang et al.) -->
     color="Black"
     use_own_mesh="false"
     mesh="">
-    <axis xyz="0 1 0" />
-    <origin xyz="0 ${arm_length} 0" rpy="0 0 0" />
+    <origin xyz="${arm_length} ${-arm_length/2} 0" rpy="0 ${pi/2} 0" />
     <xacro:insert_block name="rotor_inertia" />
-  </xacro:axis_rotor>
+  </xacro:vertical_rotor>
+
+  <xacro:vertical_rotor
+    robot_namespace="${namespace}"
+    suffix="y_thrust_cw"
+    direction="cw"
+    motor_constant="${motor_constant}"
+    moment_constant="${moment_constant}"
+    parent="${namespace}/base_link"
+    mass_rotor="${mass_rotor}"
+    radius_rotor="${radius_rotor}"
+    time_constant_up="${time_constant_up}"
+    time_constant_down="${time_constant_down}"
+    max_rot_velocity="${max_rot_velocity}"
+    motor_number="6"
+    rotor_drag_coefficient="${rotor_drag_coefficient}"
+    rolling_moment_coefficient="${rolling_moment_coefficient}"
+    color="Black"
+    use_own_mesh="false"
+    mesh="">
+    <origin xyz="${arm_length/2} ${arm_length} 0" rpy="${-pi/2} 0 0" />
+    <xacro:insert_block name="rotor_inertia" />
+  </xacro:vertical_rotor>
+
+  <xacro:vertical_rotor
+    robot_namespace="${namespace}"
+    suffix="y_thrust_ccw"
+    direction="ccw"
+    motor_constant="${motor_constant}"
+    moment_constant="${moment_constant}"
+    parent="${namespace}/base_link"
+    mass_rotor="${mass_rotor}"
+    radius_rotor="${radius_rotor}"
+    time_constant_up="${time_constant_up}"
+    time_constant_down="${time_constant_down}"
+    max_rot_velocity="${max_rot_velocity}"
+    motor_number="7"
+    rotor_drag_coefficient="${rotor_drag_coefficient}"
+    rolling_moment_coefficient="${rolling_moment_coefficient}"
+    color="Black"
+    use_own_mesh="false"
+    mesh="">
+    <origin xyz="${-arm_length/2} ${arm_length} 0" rpy="${-pi/2} 0 0" />
+    <xacro:insert_block name="rotor_inertia" />
+  </xacro:vertical_rotor>
 </robot>
